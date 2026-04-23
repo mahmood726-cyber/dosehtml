@@ -1,4 +1,8 @@
-# Dose Response Pro v18.1 - Ultimate Edition
+# Dose Response Pro
+
+**Canonical browser entry:** `dose-response-pro.html`
+
+Version-labelled HTML files in this repository are retained as historical snapshots or experimental builds. For normal use, the hub, tests, and documentation now point to `dose-response-pro.html`.
 
 ## Installation
 Use the dependency files in this directory (for example `requirements.txt`, `environment.yml`, `DESCRIPTION`, or equivalent project-specific files) to create a clean local environment before running analyses.
@@ -8,7 +12,7 @@ Document any package-version mismatch encountered during first run.
 
 ## Release Status (2026-03-08)
 
-- Release decision: current artifact set supports broad public release of v18.1.
+- Release decision: the canonical browser entry (`dose-response-pro.html`) supports broad public release.
 - Deterministic CLI parity vs `dosresmeta`: 3/3 passed, with grid checks 3/3 passed.
 - Strict benchmark vs R: `beats_r = true` on 120/120 comparable datasets.
 - Strict benchmark runtime: median speedup `1.9157x` versus R under the benchmark harness.
@@ -74,7 +78,9 @@ Historical 2026-02-28 package (archival context, not the current release basis):
 
 ```
 dosehtml/
-├── dose-response-pro.html              # Main application ⭐ USE THIS
+├── dose-response-pro.html              # Canonical browser entry ⭐ USE THIS
+├── dose-response-pro-v18.3-fixed.html  # Historical named snapshot
+├── dose-response-pro-v19.0.html        # Experimental snapshot
 ├── dose-response-cli.py                # Command-line tool
 ├── dose-response-worker.js             # Prototype worker module (not wired into active UI)
 │
@@ -112,7 +118,7 @@ dosehtml/
 | **Performance** | [Computational Complexity](docs/Computational_Complexity.md) |
 | **API Reference** | [Complete Documentation](docs/Complete_Documentation.md) |
 | **Validation** | [Validation Results](docs/Validation_Results_v18.1_Corrected.md) |
-| **Version History** | [Version Comparison](docs/Version_Comparison.md) |
+| **Version History / Snapshot Notes** | [Version Comparison](docs/Version_Comparison.md) |
 
 ---
 

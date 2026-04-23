@@ -17,18 +17,18 @@
 
 ## Executive Summary
 
-### Critical Finding
+### Historical Finding
 
-The main application file (`dose-response-pro.html`) was labeled as **v1.0** but the documentation references **v18.1**. Investigation revealed:
+An older repo state had a mismatch between the default browser entry and the named release snapshots. The repository now treats `dose-response-pro.html` as the canonical browser entry, while the version-labelled HTML files are retained only as historical or experimental snapshots.
 
 | File | Version | Size | Last Modified | Status |
 |------|---------|------|---------------|--------|
-| `dose-response-pro.html` | v1.0 (title) | 72 KB | 2025-12-25 | **OUTDATED** |
-| `dose-response-pro-v18.1-ultimate.html` | v18.1 | 135 KB | 2026-01-14 | **CURRENT** |
+| `dose-response-pro.html` | Canonical browser entry | Current | Active | **USE THIS** |
+| `dose-response-pro-v18.1-ultimate.html` | Historical named snapshot | Retained | Historical | Reference only |
 
-**Action Taken:** Updated `dose-response-pro.html` title and CSS version to v18.1.
+**Action Taken:** Landing page, README, hub, and consolidation workflow now point to `dose-response-pro.html` as the only default launch target.
 
-**Recommendation:** Users should use `dose-response-pro-v18.1-ultimate.html` as the primary application file, or replace `dose-response-pro.html` with the v18.1 content.
+**Recommendation:** Use `dose-response-pro.html` unless you are intentionally reproducing an older named artifact.
 
 ---
 
@@ -49,23 +49,11 @@ The discrepancy occurred because:
 3. ✅ Documented this discrepancy
 4. ✅ Created comprehensive documentation
 
-### Recommended Next Step
+### Current Policy
 
-**Option A (Recommended):** Replace main file
-```bash
-# Backup current
-cp dose-response-pro.html dose-response-pro-v1.0.backup.html
-
-# Replace with v18.1
-cp dose-response-pro-v18.1-ultimate.html dose-response-pro.html
-```
-
-**Option B:** Update README to reference correct file
-```markdown
-# Main Application
-**File:** `dose-response-pro-v18.1-ultimate.html` (primary)
-**File:** `dose-response-pro.html` (legacy v1.0 - DO NOT USE)
-```
+- `dose-response-pro.html` is the canonical browser entry.
+- Version-labelled HTML files are archival or experimental snapshots, not the default runtime target.
+- When documentation or tests need a single browser entry, they should reference `dose-response-pro.html`.
 
 ---
 

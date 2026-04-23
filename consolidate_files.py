@@ -7,7 +7,7 @@ This script consolidates multiple versions of Dose Response Pro into
 a single clean directory structure.
 
 Directory structure after consolidation:
-├── dose-response-pro.html          (Main application - latest version)
+├── dose-response-pro.html          (Canonical browser entry)
 ├── docs/
 │   ├── Complete_Documentation.md
 │   ├── GLS_Method_Documentation.md
@@ -24,16 +24,17 @@ import shutil
 from pathlib import Path
 
 # Configuration
-DOSEHTML_DIR = Path(r"C:\dosehtml")
-MAIN_FILE = "dose-response-pro-v18.1-ultimate.html"
+DOSEHTML_DIR = Path(__file__).resolve().parent
+MAIN_FILE = "dose-response-pro.html"
 ARCHIVE_DIR = DOSEHTML_DIR / "archive"
 DOCS_DIR = DOSEHTML_DIR / "docs"
 TESTS_DIR = DOSEHTML_DIR / "tests"
 
 # Files to keep in main directory
 KEEP_FILES = [
-    "dose-response-pro-v18.1-ultimate.html",
     "dose-response-pro.html",
+    "dose-response-pro-v18.3-fixed.html",
+    "dose-response-pro-v19.0.html",
     "sample_dose_response_data.csv"
 ]
 
@@ -171,16 +172,15 @@ def cleanup_temp_files():
     print(f"  [OK] Moved {removed_count} temporary files to archive")
 
 
-def create_main_symlink():
-    """Create a symlink/copy of the main file with a simple name."""
-    print("\nCreating main application link...")
+def ensure_main_entry():
+    """Ensure the canonical browser entry exists."""
+    print("\nChecking canonical browser entry...")
 
-    main_src = DOSEHTML_DIR / MAIN_FILE
-    main_link = DOSEHTML_DIR / "dose-response-pro.html"
+    main_entry = DOSEHTML_DIR / MAIN_FILE
+    if not main_entry.exists():
+        raise FileNotFoundError(f"Missing canonical browser entry: {main_entry}")
 
-    if main_src.exists() and not main_link.exists():
-        shutil.copy(str(main_src), str(main_link))
-        print(f"  [OK] Created: dose-response-pro.html -> {MAIN_FILE}")
+    print(f"  [OK] Using existing canonical entry: {MAIN_FILE}")
 
 
 def create_readme():
@@ -200,8 +200,9 @@ def create_readme():
 
 ```
 dosehtml/
-├── dose-response-pro.html              # Main application (use this)
-├── dose-response-pro-v18.1-ultimate.html  # Source file
+├── dose-response-pro.html              # Canonical browser entry (use this)
+├── dose-response-pro-v18.3-fixed.html  # Historical named snapshot
+├── dose-response-pro-v19.0.html        # Experimental newer snapshot
 ├── docs/                               # Documentation
 │   ├── Complete_Documentation.md       # Full documentation
 │   ├── GLS_Method_Documentation.md     # GLS methodology
@@ -240,9 +241,8 @@ source("tests/validate_dose_response_pro.R")
 
 ## Version
 
-- **Current Version**: v18.1 Ultimate
-- **Release Date**: 2025-12-26
-- **File Size**: ~2 MB
+- **Canonical Entry**: `dose-response-pro.html`
+- **Historical Snapshots**: keep the versioned HTML files for audit/reference only
 
 ## Support
 
@@ -267,8 +267,7 @@ def print_summary():
     print("=" * 60)
 
     print(f"\nMain directory: {DOSEHTML_DIR}")
-    print(f"  Main application: dose-response-pro.html")
-    print(f"  Source file: {MAIN_FILE}")
+    print(f"  Main application: {MAIN_FILE}")
 
     print(f"\nDocumentation: {DOCS_DIR}")
     for file in sorted(DOCS_DIR.glob("*")):
@@ -300,7 +299,7 @@ def main():
     organize_documentation()
     organize_tests()
     cleanup_temp_files()
-    create_main_symlink()
+    ensure_main_entry()
     create_readme()
     print_summary()
 
