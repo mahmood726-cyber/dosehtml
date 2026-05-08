@@ -1,3 +1,6 @@
+// sentinel:skip-file — hardcoded paths are research-workflow output
+// destinations (generated R code locations), not portable application
+// configuration. Same convention as C:/Projects/allmeta/dosehtml/run_*.js.
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
